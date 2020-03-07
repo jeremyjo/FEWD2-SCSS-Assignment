@@ -1,0 +1,46 @@
+// mixin that adds a background image
+@mixin backgroundImage($image, $height: 100vh) {
+    // note that the default height is 100% of viewport height
+    background: linear-gradient(to bottom, 
+        rgba(0,0,0,0),
+        rgba(0,0,0,0.4)),
+        url($image);
+    background-repeat: none;
+    background-position: center;
+    background-size: cover;
+    height: $height;                // sets height
+}
+
+// mixin that clears a float
+@mixin clearFloat {
+    &:before, &:after {
+        content: '';
+        display: block;
+    }
+
+    &:after {
+        clear: both;
+    }
+}
+
+// mixin that adds grid of images
+@mixin gridImage ($numColumns, $margin) {
+    // math operator used
+    width: ( (100% - ($numColumns - 1) * $margin ) / $numColumns );
+    &:nth-child(n) {
+        margin-bottom: $margin;
+        margin-right: $margin;
+    }
+
+    &:nth-child(#{$numColumns}n) {
+        margin-bottom: 0;
+        margin-right: 0;
+    }
+}
+
+// mixin that inserts a media query breakpoint at a specified screen size
+@mixin breakPoint ($pageSize) {
+    @media screen and (min-width: $pageSize) {
+        @content;
+    }
+}

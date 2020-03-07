@@ -1,0 +1,87 @@
+body {
+
+    // center the section content
+    section.content {
+        margin: 0 auto;
+        width: 95%;
+
+        h1, h2, h3 {
+            margin-top: 2.5rem;
+            margin-bottom: 0.75rem;
+            text-align: center;
+        }
+
+        h1:first-child {
+            // list properties
+            $margin: 0 0 0.5rem 0;
+            margin-top: nth($margin, 1);
+            margin-bottom: nth($margin, 3);
+            padding-top: 1rem;
+
+            // center align the first <p> after an <h1>
+            & + p {            // sibling selector: <p> immediately afer <h1>
+                text-align: center;
+            }
+        }       // end h1:first-child
+    
+        // responsive image
+        img {
+            max-width: 100%;
+            width: 100%;
+        }
+
+        // map definition
+        $imgSize: (
+            Top: $imgTop,
+            Mid: $imgMid,
+            Bottom: $imgBottom,
+        );
+
+        // call the map that has been defined
+        // loop conditional (flow content item)
+        @each $name, $value in $imgSize {
+            .img#{$name}:hover {
+                width: $value;    
+            }
+        }
+
+        p {
+            margin-bottom: 0.75rem;
+        }
+
+        // image grid 
+        & article.grid {
+            @include clearFloat;
+            margin-bottom: 1rem;
+            
+            .gridPhoto {
+                float: left;
+                @include gridImage(2, 2%);
+            }
+
+            img {
+                display: block;
+                border-radius: 10px;
+                max-width: 100%;
+                height: auto;
+            }
+        }
+    }               // end of section.content
+}                   // end of body
+
+// call media query mixin for a breakpoint at 900px
+@include breakPoint (900px) {
+    article.column {
+        display: grid;
+        grid-template-columns: 2;
+    }
+
+    article.left {
+        grid-column: 1;
+        padding: 0 1rem;
+    }
+    
+    article.right {
+        grid-column: 2;
+    }
+}

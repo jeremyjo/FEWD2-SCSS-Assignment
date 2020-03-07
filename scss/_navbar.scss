@@ -1,0 +1,97 @@
+// navbar links
+
+nav.navbar {
+    display: grid;
+    grid-template-rows: repeat(3, 1.75rem);
+    grid-template-columns: repeat(3, 1fr);
+    
+    // uses a mixin to place a background image at a specified height
+    @include backgroundImage("../images/alex3.jpg", 5.25rem);
+    padding-top: 0.25rem;
+
+    // nesting at 2 levels
+    ul {
+        list-style-type: none;
+        grid-column: 1;
+        //text-align: center;
+        padding-left: 1rem;
+        li.link {
+            font-size: 1.25em;
+
+            // hyperlink CSS
+            a {
+                text-decoration: none;
+                &:link {
+                    color: $navbarLinkBaseColor;
+                }
+                &:visited {
+                    color: $navbarLinkVisitedColor;
+                }
+                &:hover {
+                    color: $navbarLinkHoverColor;
+                    font-size: 15px;
+                    border-top: 1px solid white;
+                    
+                    // SASS color function: complement
+                    // Built-in SASS function #1: transparentize
+                    background-color: transparentize ( complement ($navbarLinkHoverColor), 0.9 );
+                }
+                &:active {
+                    color: $navbarLinkActiveColor;
+                }
+            }   // end of a
+        }       // end of li
+
+        // second link
+        li.link-second {
+            // extend used to build off of the li.link rule
+            @extend li.link;
+            a:hover {
+                // Built-in SASS function #1: mix
+                color: mix(white, green);
+                border-top: 1px solid white;
+                // SASS color function: complement
+                // Built-in SASS function #2: transparentize
+                background-color: transparentize( complement(black), 0.8);
+            }
+        }
+
+        // third link
+        li.link-third {
+            // extend used to build off of the li.link rule
+            @extend li.link;
+            a:hover {
+                // Built-in SASS function #1: mix
+                color: mix(blue, black);
+                border-top: 1px solid white;
+                // SASS color function: complement
+                // Built-in SASS function #2: transparentize
+                background-color: transparentize( complement(blue), 0.8);
+            }
+        }
+    }       // end of ul
+}           // end of nav.navbar
+
+// call media query mixin for a breakpoint at 600px
+@include breakPoint (600px) {
+    nav.navbar {
+        
+        // change position of the navbar
+        ul {
+            grid-row: 3;
+            grid-column: 2;
+            padding-left: 0;
+            text-align: center;
+        }
+
+        // make the navbar links appear horizontally
+        ul li {
+            display: inline;
+            margin: 0 0.5rem;
+        }
+
+        // shift the background image portion to show
+        background-position: 0% 40%;
+        background-size: cover;
+    }
+}
